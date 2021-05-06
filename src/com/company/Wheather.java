@@ -20,67 +20,61 @@ import java.util.Scanner;
 
 
 public class Wheather {
-    public static  String getWeather(String message, Model model) throws IOException {
+    public static String getWeather(String message, Model model) throws IOException {
 
 
-        URL url = new URL("http://api.openweathermap.org/data/2.5/weather?q="+message+"&units=metric&APPID=6a6d12380407ba0a506a3fa4567947f5");
+        URL url = new URL("http://api.openweathermap.org/data/2.5/weather?q=" + message + "&units=metric&APPID=6a6d12380407ba0a506a3fa4567947f5");
         Scanner in = new Scanner((InputStream) url.getContent());
         String result = "";
         while (in.hasNext()) {
             result += in.nextLine();
         }
-        JSONObject object=new JSONObject(result);
+        JSONObject object = new JSONObject(result);
         model.setName(object.getString("name"));
         JSONObject main = object.getJSONObject("main");
         model.setTemp(main.getDouble("temp"));
         model.setHumidity(main.getDouble("humidity"));
-        JSONArray getarray =object.getJSONArray("weather");
-        for (int i=0;i<getarray.length(); i++){
-        JSONObject object1 =getarray.getJSONObject(i);
-        model.setIcon((String) object1.get("icon"));
-        model.setMain((String)object1.get("main"));
+        JSONArray getarray = object.getJSONArray("weather");
+        for (int i = 0; i < getarray.length(); i++) {
+            JSONObject object1 = getarray.getJSONObject(i);
+            model.setIcon((String) object1.get("icon"));
+            model.setMain((String) object1.get("main"));
 
         }
 
-        return "Город"+ model.getName()+ "\n"+
-        "Температура "+ model.getTemp()+ "\n"+
-        "Влажность %"+ model.getHumidity()+ "\n"+
-                "Погода "+ model.getMain()+"\n"+
-        "https://openweathermap.org/img/w/"+ model.getIcon()+ ".png"+"\n";
+        return "Город" + model.getName() + "\n" +
+                "Температура " + model.getTemp() + "\n" +
+                "Влажность %" + model.getHumidity() + "\n" +
+                "Погода " + model.getMain() + "\n" +
+                "https://openweathermap.org/img/w/" + model.getIcon() + ".png" + "\n";
+
+    }
+
+    public static String getWeather1(String message, Model model) throws IOException {
+        URL url1 = new URL("api.openweathermap.org/data/2.5/forecast/daily?q=" + message + "&cnt=1&units=metric&APPID=6a6d12380407ba0a506a3fa4567947f5");
+        //
+        Scanner in1 = new Scanner((InputStream) url1.getContent());
+        String result1 = "";
+        while (in1.hasNext()) {
+            result1 += in1.nextLine();
+        }
+        JSONObject object1 = new JSONObject(result1);
+        model.setName(object1.getString("name"));
+        JSONObject main = object1.getJSONObject("main");
+        model.setTemp(main.getDouble("temp"));
+        model.setHumidity(main.getDouble("humidity"));
+        JSONArray getarray = object1.getJSONArray("weather");
+        for (int i = 0; i < getarray.length(); i++) {
+            JSONObject object2 = getarray.getJSONObject(i);
+            model.setIcon((String) object2.get("icon"));
+            model.setMain((String) object2.get("main"));
+        }
+        return "Город" + model.getName() + "\n" +
+                "Температура " + model.getTemp() + "\n" +
+                "Влажность %" + model.getHumidity() + "\n" +
+                "Погода " + model.getMain() + "\n" +
+                "https://openweathermap.org/img/w/" + model.getIcon() + ".png" + "\n";
 
     }
 }
-//            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//            connection.setRequestMethod("GET");
-//            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-//            String inputline;
-//            StringBuffer response = new StringBuffer();
-//            while ((inputline = in.readLine()) != null) {
-//                response.append(inputline);
-//                in.close();
-//                return response.toString();
-//            }
-//        } catch (ProtocolException e) {
-//            e.printStackTrace();
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-////
-////        catch(IOException e){
-////                e.printStackTrace();
-//        //
-//        //     InputStreamReader reader = new InputStreamReader(urlObject.openStream());
-//        //     Gson todayWeatherGson = new Gson();
-////
-//        //     HttpURLConnection connection = (HttpURLConnection) urlObject.openConnection();
-//////
-//        //      int responseCode = connection.getResponseCode();
-//        //BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-//        //      String inputLine;
-//////    StringBuffer response = new StringBuffer();
-//        //      return wt.toString();
-//
-  //    return null;
-//    }
+
