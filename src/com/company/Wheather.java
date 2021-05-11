@@ -51,8 +51,8 @@ public class Wheather {
     }
 
     public static String getWeather1(String message, Model model) throws IOException {
-        URL url1 = new URL("api.openweathermap.org/data/2.5/forecast/daily?q=" + message + "&cnt=1&units=metric&APPID=6a6d12380407ba0a506a3fa4567947f5");
-        //
+        URL url1 = new URL("http://api.openweathermap.org/data/2.5/weather?" + message + "&units=metric&APPID=6a6d12380407ba0a506a3fa4567947f5");
+        //api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
         Scanner in1 = new Scanner((InputStream) url1.getContent());
         String result1 = "";
         while (in1.hasNext()) {

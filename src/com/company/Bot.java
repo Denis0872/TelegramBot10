@@ -26,8 +26,8 @@ public class Bot extends TelegramLongPollingBot {
     public String message;
     public String uSecondName;
     public String uNick;
-    private double lat;
-    private double lon;
+    private double lat1;
+    private double lon1;
 
 
     public void sendMessage(Message mes, String text) {
@@ -57,28 +57,44 @@ public class Bot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
 
-        Location loc =new Location();
+        //Location loc =new Location();
         Model model= new Model();
         Message message = update.getMessage();
-        message.getLocation();
 
         if (message != null && message.hasText()) {
           //  if(message.hasLocation())
 
             switch (message.getText()) {
-//                case "/help":
-//                    sendMessage(message, "Чем могу помочь?");
-//                    break;
-                case "/location":
-                    this.lat = 1.1;
-                    this.lon = 1.2;
-                    this.chatId = "1";//update.getMessage().getChatId().toString();
-                    //User user = update.getMessage().getFrom();
-                    this.uName = "Вася";//user.getFirstName();
-                    this.uSecondName = "Петров" ;// user.getLastName();
-                    this.uNick = "волк";//user.getUserName();
-                    update.getMessage().hasLocation();
-                    sendMessage(message, "Ваша локация:"+lat+" "+lon );
+
+                case "/location":{
+
+                    //loc=message.getLocation();
+                   // lat1= loc.getLatitude();
+                    //lon1=loc.getLongitude();
+                   // message.getLocation().toString();
+
+//                    String tx="lat="+lat1+"&lon="+lon1;
+//
+//                    try {
+//                            sendMessage(message, Wheather.getWeather1(message.getText(), model));
+//                        } catch (IOException e) {
+//                            sendMessage(message, "Такого города нетy");
+//                        }
+
+//                    if(update.getMessage().hasLocation()){
+//                        loc=message.getLocation();
+//                         lat1= loc.getLatitude().intValue();
+//                        lon1=loc.getLongitude().intValue();
+//                        System.out.println(loc);
+//                        sendMessage(message, loc.toString());
+//                       // "lat="+lat1+"&lon="+lon1;
+//                        try {
+//                            sendMessage(message, Wheather.getWeather(message.getText(), model));
+//                        } catch (IOException e) {
+//                            sendMessage(message, "Такого города нетy");
+//                        }
+                    }
+
                     break;
                 case "/start":
                     sendMessage(message, "Привет!!! Это Телеграм Бот" );
@@ -225,4 +241,9 @@ public class Bot extends TelegramLongPollingBot {
         replyKeyboardMarkup.setKeyboard(keyboardRowList);
 
     }
+    @Override
+    public String toString() {
+        return String.format("lat="+lat1+"&lon="+lon1);
+    }
+
 }
